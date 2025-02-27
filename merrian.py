@@ -30,8 +30,6 @@ class Language:
                 ANSWER = getattr(glyph, P)
                 return f"[{BOLD}{BLUE}{getattr(glyph, 'abstract').capitalize()}{ENDC}:{BOLD}{GREEN}{P.capitalize()}{ENDC}] {BOLD}{WHITE}{ANSWER.capitalize()}{ENDC}"
 
-#print("\n [" + BOLD + BLUE + ARGS[0].capitalize() + ENDC + ":" + GREEN + BOLD + ARGS[1].capitalize() + ENDC + "] " + BOLD + WHITE + WORD + "\n" + ENDC)
-
 MERRIAN = Language()
 
 class Glyph:
@@ -80,7 +78,6 @@ if not len(ARGS) > 1:
 else:
     try:
         WORD = MERRIAN.glyphsearch(ARGS[0], ARGS[1])
-        #print("\n [" + BOLD + BLUE + ARGS[0].capitalize() + ENDC + ":" + GREEN + BOLD + ARGS[1].capitalize() + ENDC + "] " + BOLD + WHITE + WORD + "\n" + ENDC)
         print(f"\n{WORD}\n")
     except:
         print(f"{BOLD}{RED}Error{ENDC}: Word not found in database. Make sure of spelling. You wrote [{BOLD}{YELLOW}{SEARCH}{ENDC}]\n")
