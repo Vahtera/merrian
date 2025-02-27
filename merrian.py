@@ -59,7 +59,7 @@ def open_dictionary(F_NAME):
 DICT = open_dictionary("merrian.txt")
 
 clear_screen()
-print(f"{CYAN}Merrian Dictionary. Version {BOLD}0.2\n{ENDC}")
+print(f"{CYAN}Merrian Dictionary.{ENDC} {BOLD}{BLACK}Version{ENDC} {BOLD}{CYAN}0.3 alpha\n{ENDC}")
 
 if ARGUMENTS > 1:
     SEARCH = sys.argv[1].lower()
