@@ -3,6 +3,9 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# Ignore actual language file, as it's not (as of yet) licensed for public use
+merrian.txt
+
 # User-specific files
 *.rsuser
 *.suo
