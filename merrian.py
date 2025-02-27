@@ -52,7 +52,7 @@ def open_dictionary(F_NAME):
     T_DICT = []
     with open(F_NAME, "r", encoding="utf-8") as F:  # Open the File and Read the Lines into an Array
         for LINE in F:
-            T_LIST = LINE.split(", ")
+            T_LIST = LINE.strip().split(", ")
             T_DICT.append(Glyph(*T_LIST))
     return T_DICT
 
