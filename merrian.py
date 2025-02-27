@@ -10,12 +10,13 @@ import sys
 from libAnna.functions import clear_screen
 from libAnna.colors import *
 
+VERSION = "0.4 alpha"
 ARGUMENTS = len(sys.argv)
 
 class Language:
     glyphs = []
     @staticmethod
-    def wordsearch(word: str):
+    def wordsearch(word: str): # method to search with a word definition
         for glyph in Language.glyphs:
             for part_of_speech in ['abstract', 'noun', 'verb', 'doer', 'place']:
                 if word in getattr(glyph, part_of_speech).split("/"):
@@ -24,13 +25,13 @@ class Language:
                     else:
                         return f"{BOLD}{BLUE}{glyph.abstract.upper()}{ENDC}:{GREEN}{BOLD}{part_of_speech.capitalize()}{ENDC}"
     @staticmethod
-    def glyphsearch(A: str, P: str):
+    def glyphsearch(A: str, P: str): # method to search with "glyph, part"
         for glyph in Language.glyphs:
             if A in getattr(glyph, 'abstract'):
                 ANSWER = getattr(glyph, P)
                 return f"[{BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}:{BOLD}{GREEN}{P.capitalize()}{ENDC}] {BOLD}{WHITE}{ANSWER.capitalize()}{ENDC}"
 
-MERRIAN = Language()
+MERRIAN = Language() # Define Merrian as the language
 
 class Glyph:
     def __init__(self, abstract: str, noun: str, verb: str, doer: str, place: str):
@@ -43,7 +44,7 @@ class Glyph:
     def __repr__(self):
         return (f" [Glyph] Abstract: {self.abstract.capitalize()}, Noun: {self.noun.capitalize()}, Verb: {self.verb.capitalize()}, Doer: {self.doer.capitalize()}, Place: {self.place.capitalize()}")
 
-DICT = []
+DICT = [] # Main dictionary to read the glyphs into
 
 # Dictionary file needs to include five comma-separated strings per line.
 def open_dictionary(F_NAME):
@@ -56,20 +57,21 @@ def open_dictionary(F_NAME):
             T_DICT.append(Glyph(*T_LIST))
     return T_DICT
 
-DICT = open_dictionary("merrian.txt")
+DICT = open_dictionary("merrian.txt") # read the main language file into the Dictionary.
 
 clear_screen()
-print(f"{CYAN}Merrian Dictionary.{ENDC} {BOLD}{BLACK}Version{ENDC} {BOLD}{CYAN}0.3 alpha\n{ENDC}")
+print(f"{CYAN}Merrian Dictionary.{ENDC} {BOLD}{BLACK}Version{ENDC} {BOLD}{CYAN}{VERSION}{ENDC}")
 
-if ARGUMENTS > 1:
-    SEARCH = sys.argv[1].lower()
+if ARGUMENTS > 1: # Check if arguments were give
+    SEARCH = sys.argv[1].lower() # if yes, then try to use the first argument as the search term.
 else:
-    SEARCH = input(f"Enter word [{BOLD}word{ENDC}] or a combination [{BOLD}abstact, part{ENDC}] to look up: ").lower()
+    # if not, ask the user for input.
+    SEARCH = input(f"\nEnter word [{BOLD}word{ENDC}] or a combination [{BOLD}abstact, part{ENDC}] to look up: ").lower()
 
-ARGS = SEARCH.split(", ")
+ARGS = SEARCH.split(", ") # split search into two parts, if two words were given.
 
 if not len(ARGS) > 1:
-    WORD = MERRIAN.wordsearch(SEARCH)
+    WORD = MERRIAN.wordsearch(SEARCH) # Search for a specific word within Merrian
     try:
         print("\n [" + BOLD + SEARCH.capitalize() + "] " + ENDC + WORD + "\n" + ENDC)
     except:
@@ -78,7 +80,7 @@ if not len(ARGS) > 1:
     
 else:
     try:
-        WORD = MERRIAN.glyphsearch(ARGS[0], ARGS[1])
+        WORD = MERRIAN.glyphsearch(ARGS[0], ARGS[1]) # Search for abstract+part combination within Merrian
         print(f"\n{WORD}\n")
     except:
         print(f"{BOLD}{RED}Error{ENDC}: Word not found in database. Make sure of spelling. You wrote [{BOLD}{YELLOW}{SEARCH}{ENDC}]\n")
