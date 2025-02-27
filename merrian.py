@@ -20,15 +20,15 @@ class Language:
             for part_of_speech in ['abstract', 'noun', 'verb', 'doer', 'place']:
                 if getattr(glyph, part_of_speech) == word:
                     if part_of_speech == "abstract":
-                        return f"{GREEN}{glyph.abstract.capitalize()}{ENDC} ({BOLD}{BLACK}{part_of_speech.capitalize()}{ENDC})"
+                        return f"{BLUE}{BOLD}{glyph.abstract.upper()}{ENDC} ({BOLD}{BLACK}{part_of_speech.capitalize()}{ENDC})"
                     else:
-                        return f"{BOLD}{BLUE}{glyph.abstract.capitalize()}{ENDC}:{GREEN}{BOLD}{part_of_speech.capitalize()}{ENDC}"
+                        return f"{BOLD}{BLUE}{glyph.abstract.upper()}{ENDC}:{GREEN}{BOLD}{part_of_speech.capitalize()}{ENDC}"
     @staticmethod
     def glyphsearch(A: str, P: str):
         for glyph in Language.glyphs:
             if A in getattr(glyph, 'abstract'):
                 ANSWER = getattr(glyph, P)
-                return f"[{BOLD}{BLUE}{getattr(glyph, 'abstract').capitalize()}{ENDC}:{BOLD}{GREEN}{P.capitalize()}{ENDC}] {BOLD}{WHITE}{ANSWER.capitalize()}{ENDC}"
+                return f"[{BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}:{BOLD}{GREEN}{P.capitalize()}{ENDC}] {BOLD}{WHITE}{ANSWER.capitalize()}{ENDC}"
 
 MERRIAN = Language()
 
