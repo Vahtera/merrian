@@ -18,7 +18,7 @@ class Language:
     def wordsearch(word: str):
         for glyph in Language.glyphs:
             for part_of_speech in ['abstract', 'noun', 'verb', 'doer', 'place']:
-                if getattr(glyph, part_of_speech) == word:
+                if word in getattr(glyph, part_of_speech).split("/"):
                     if part_of_speech == "abstract":
                         return f"{BLUE}{BOLD}{glyph.abstract.upper()}{ENDC} ({BOLD}{BLACK}{part_of_speech.capitalize()}{ENDC})"
                     else:
