@@ -1,3 +1,11 @@
+''' Program to search for glyphs and definitions withing a language known as "Merrian".'''
+
+#
+# Copyright (c) Anna Vahtera 2025
+# With the help of Reddit user https://www.reddit.com/user/g13n4/
+# Thank you for the initial code for the Language and Glyph classes!
+#
+
 import sys
 from libAnna.functions import clear_screen
 from libAnna.colors import *
@@ -37,7 +45,9 @@ class Glyph:
 
 DICT = []
 
+# Dictionary file needs to include five comma-separated strings per line.
 def open_dictionary(F_NAME):
+    '''Read the Glyph definitions from a list'''
     T_LIST = []
     T_DICT = []
     with open(F_NAME, "r", encoding="utf-8") as F:  # Open the File and Read the Lines into an Array
