@@ -1,5 +1,5 @@
 ```
-'''Program to search for glyphs and definitions withing a language known as "Merrian".'''
+'''Program to search for glyphs and definitions within a language known as "Merrian".'''
 
 #
 # Copyright (c) Anna Vahtera 2025
