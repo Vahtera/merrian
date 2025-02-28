@@ -52,7 +52,11 @@ class Glyph:
         self.place = place
         MERRIAN.glyphs.append(self)
     def __repr__(self):
-        return (f"{BOLD}{BLACK} [{ENDC}{CYAN}{BOLD}Glyph{ENDC}{BOLD}{BLACK}]{ENDC} {BOLD}{BLUE}{self.abstract.upper()}{ENDC} {BOLD}{BLACK}(Abstract){ENDC} {GREEN}{self.noun.capitalize()} {BOLD}{BLACK}(Noun){ENDC} {GREEN}{self.verb.capitalize()} {BOLD}{BLACK}(Verb){ENDC} {GREEN}{self.doer.capitalize()} {BOLD}{BLACK}(Doer){ENDC} {GREEN}{self.place.capitalize()} {BOLD}{BLACK}(Place){ENDC}")
+        return (f"  {BOLD}{BLUE}{self.abstract.upper()}{ENDC}: {BOLD}{BLACK}(Abstract){ENDC} \n"
+        f"    :{GREEN}{self.noun.capitalize()} {BOLD}{BLACK}(Noun){ENDC} \n"
+        f"    :{GREEN}{self.verb.capitalize()} {BOLD}{BLACK}(Verb){ENDC} \n"
+        f"    :{GREEN}{self.doer.capitalize()} {BOLD}{BLACK}(Doer){ENDC} \n"
+        f"    :{GREEN}{self.place.capitalize()} {BOLD}{BLACK}(Place){ENDC}\n\n")
 
 DICT = [] # Main dictionary to read the glyphs into
 
@@ -98,11 +102,10 @@ if SEARCH == "--list":
     sys.exit()
 
 if SEARCH == "--glyph" and len(sys.argv) > 2:
-    print("\n")
+    print(f"\n  \"{BOLD}{CYAN}{sys.argv[2].lower()}{ENDC}\" found in the following glyphs:\n")
     for glyph in MERRIAN.glyphs:
         if sys.argv[2].lower() in repr(glyph).lower():
             print(glyph)
-    print("\n")
     sys.exit()
 
 
