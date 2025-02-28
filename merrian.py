@@ -72,7 +72,7 @@ def list_glyphs():
     print(BOLD + YELLOW + "ABSTRACT".ljust(PADDING, " ") + " Noun".ljust(PADDING, " ") + "  Verb".ljust(PADDING, " ") + "   Doer".ljust(PADDING, " ") + "    Place" + ENDC)
     print("=".ljust(PADDING, "=")[:PADDING] + " =".ljust(PADDING, "=")[:PADDING] + "  =".ljust(PADDING, "=")[:PADDING] + "   =".ljust(PADDING, "=")[:PADDING] + "    =".ljust(PADDING, "=")[:PADDING])
     for glyph in MERRIAN.glyphs:
-        print(f"{glyph.abstract.upper().ljust(PADDING, " ")[:PADDING]} {glyph.noun.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.verb.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.doer.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.place.capitalize()[:PADDING]}")
+        print(f"{BOLD}{BLUE}{glyph.abstract.upper().ljust(PADDING, " ")[:PADDING]}{ENDC} {glyph.noun.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.verb.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.doer.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.place.capitalize()[:PADDING]}")
     print("\n")
 
 
