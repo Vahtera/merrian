@@ -110,7 +110,7 @@ ARGS = SEARCH.split(", ") # split search into two parts, if two words were given
 if not len(ARGS) > 1:
     WORD = MERRIAN.wordsearch(SEARCH) # Search for a specific word within Merrian
     try:
-        print("\n [" + BOLD + SEARCH.capitalize() + "] " + ENDC + WORD + "\n" + ENDC)
+        print("\n [" + BOLD + SEARCH.capitalize() + NOBOLD + "] " + ENDC + WORD + "\n" + ENDC)
     except:
         print(f"\n {BOLD}{RED}Error{ENDC}: Word not found in database. Make sure you spelled it correctly. You wrote: [{BOLD}{YELLOW}{SEARCH}{ENDC}]\n In case of multiple entries, make sure you separate them with a comma and a whitespace.\n")
         sys.exit()
