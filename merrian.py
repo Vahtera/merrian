@@ -11,6 +11,7 @@
 # Version 0.3 alpha - Added ANSI color to output
 # Version 0.4 alpha - Added ability to search for multiple words within one glyph definition
 # Version 0.5 alpha - Added ability list all glyphs with --list
+# Version 0.6 alpha — Added --glyph command line functionality.
 #
 
 import sys
