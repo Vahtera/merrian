@@ -5,12 +5,19 @@
 # With the help of Reddit user https://www.reddit.com/user/g13n4/
 # Thank you for the initial code for the Language and Glyph classes!
 #
+# Version History:
+# Version 0.1 alpha - Initial Release
+# Version 0.2 alpha - Added glyphsearch()
+# Version 0.3 alpha - Added ANSI color to output
+# Version 0.4 alpha - Added ability to search for multiple words within one glyph definition
+# Version 0.5 alpha - Added ability list all glyphs with --list
+#
 
 import sys
 from libAnna.functions import clear_screen
 from libAnna.colors import *
 
-VERSION = "0.4 alpha"
+VERSION = "0.5 alpha"
 ARGUMENTS = len(sys.argv)
 
 class Language:
@@ -27,7 +34,7 @@ class Language:
     @staticmethod
     def glyphsearch(A: str, P: str): # method to search with "glyph, part"
         for glyph in Language.glyphs:
-            if A in getattr(glyph, 'abstract'):
+            if A in getattr(glyph, 'abstract').split("/"):
                 ANSWER = getattr(glyph, P)
                 return f"[{BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}:{BOLD}{GREEN}{P.capitalize()}{ENDC}] {BOLD}{WHITE}{ANSWER.capitalize()}{ENDC}"
 
@@ -59,6 +66,16 @@ def open_dictionary(F_NAME):
 
 DICT = open_dictionary("merrian.txt") # read the main language file into the Dictionary.
 
+def list_glyphs():
+    PADDING = 20
+    print("\n")
+    print(BOLD + YELLOW + "ABSTRACT".ljust(PADDING, " ") + " Noun".ljust(PADDING, " ") + "  Verb".ljust(PADDING, " ") + "   Doer".ljust(PADDING, " ") + "    Place" + ENDC)
+    print("=".ljust(PADDING, "=")[:PADDING] + " =".ljust(PADDING, "=")[:PADDING] + "  =".ljust(PADDING, "=")[:PADDING] + "   =".ljust(PADDING, "=")[:PADDING] + "    =".ljust(PADDING, "=")[:PADDING])
+    for glyph in MERRIAN.glyphs:
+        print(f"{glyph.abstract.upper().ljust(PADDING, " ")[:PADDING]} {glyph.noun.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.verb.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.doer.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.place.capitalize()[:PADDING]}")
+    print("\n")
+
+
 clear_screen()
 print(f"{CYAN}Merrian Dictionary.{ENDC} {BOLD}{BLACK}Version{ENDC} {BOLD}{CYAN}{VERSION}{ENDC}")
 
@@ -67,6 +84,10 @@ if ARGUMENTS > 1: # Check if arguments were give
 else:
     # if not, ask the user for input.
     SEARCH = input(f"\nEnter word [{BOLD}word{ENDC}] or a combination [{BOLD}abstact, part{ENDC}] to look up: ").lower()
+
+if SEARCH == "--list":
+    list_glyphs()
+    sys.exit()
 
 ARGS = SEARCH.split(", ") # split search into two parts, if two words were given.
 
