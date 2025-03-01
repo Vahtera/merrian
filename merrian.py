@@ -159,7 +159,3 @@ while ANS.lower() in ("y", "yes"):
     
     if ARGUMENTS > 1:
         sys.exit()
-
-    #ANS = input(" Search for another word, Y/N? [Y]: ") or "Y"
-
-    #print("\n")
