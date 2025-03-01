@@ -39,12 +39,16 @@ class Language:
                     else:
                         WORDS = [temp_string.capitalize() for temp_string in getattr(glyph, part_of_speech).split("/")]
                         return f"\n {BOLD}{", ".join(WORDS)}{ENDC} = {BOLD}{BLUE}{glyph.abstract.upper()}{ENDC}:{GREEN}{BOLD}{part_of_speech.capitalize()}{ENDC}"
+                else:
+                    return f"\n {BOLD}{RED}Error{ENDC}: Word not found in database. Make sure of spelling. You wrote [{BOLD}{YELLOW}word{ENDC}]\n"
     @staticmethod
     def glyphsearch(A: str, P: str): # method to search with "glyph, part"
         for glyph in Language.glyphs:
             if A in getattr(glyph, 'abstract').split("/"):
                 ANSWER = getattr(glyph, P)
                 return f"[{BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}:{BOLD}{GREEN}{P.capitalize()}{ENDC}] {BOLD}{WHITE}{ANSWER.capitalize()}{ENDC}"
+            else:
+                return f"\n {BOLD}{RED}Error{ENDC}: Word not found in database. Make sure of spelling. You wrote [{BOLD}{YELLOW}{A}, {P}{ENDC}]\n"
 
 MERRIAN = Language() # Define Merrian as the language
 
@@ -126,7 +130,7 @@ def dictionary_search():
         try:
             print(WORD + "\n" + ENDC)
         except:
-            print(f"\n {BOLD}{RED}Error{ENDC}: Word not found in database. Make sure you spelled it correctly. You wrote: [{BOLD}{YELLOW}{ARGS}{ENDC}]\n In case of multiple entries, make sure you separate them with a comma and a whitespace.\n")
+            print(f"\n {BOLD}{RED}Error{ENDC}: Word not found in database. Make sure you spelled it correctly. You wrote: [{BOLD}{YELLOW}{ARGS[0]}{ENDC}]\n In case of multiple entries, make sure you separate them with a comma and a whitespace.\n")
             #sys.exit()
         
     else:
@@ -134,7 +138,7 @@ def dictionary_search():
             WORD = MERRIAN.glyphsearch(ARGS[0], ARGS[1]) # Search for abstract+part combination within Merrian
             print(f"\n {WORD}\n")
         except:
-            print(f"\n {BOLD}{RED}Error{ENDC}: Word not found in database. Make sure of spelling. You wrote [{BOLD}{YELLOW}{ARGS}{ENDC}]\n")
+            print(f"\n {BOLD}{RED}Error{ENDC}: Word not found in database. Make sure of spelling. You wrote [{BOLD}{YELLOW}{", ".join(ARGS)}{ENDC}]\n")
             #sys.exit()
 
 while ANS.lower() in ("y", "yes"):
