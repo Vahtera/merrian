@@ -119,7 +119,7 @@ def dictionary_search():
         for glyph in MERRIAN.glyphs:
             if ARGS[1].lower() in repr(glyph).lower():
                 print(glyph)
-        sys.exit()
+        return True
 
     if not len(ARGS) > 1:
         WORD = MERRIAN.wordsearch(SEARCH) # Search for a specific word within Merrian
@@ -127,7 +127,7 @@ def dictionary_search():
             print(WORD + "\n" + ENDC)
         except:
             print(f"\n {BOLD}{RED}Error{ENDC}: Word not found in database. Make sure you spelled it correctly. You wrote: [{BOLD}{YELLOW}{ARGS}{ENDC}]\n In case of multiple entries, make sure you separate them with a comma and a whitespace.\n")
-            sys.exit()
+            #sys.exit()
         
     else:
         try:
@@ -135,7 +135,7 @@ def dictionary_search():
             print(f"\n {WORD}\n")
         except:
             print(f"\n {BOLD}{RED}Error{ENDC}: Word not found in database. Make sure of spelling. You wrote [{BOLD}{YELLOW}{ARGS}{ENDC}]\n")
-            sys.exit()
+            #sys.exit()
 
 while ANS.lower() in ("y", "yes"):
     dictionary_search()
