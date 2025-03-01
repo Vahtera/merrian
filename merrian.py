@@ -20,6 +20,7 @@ from libAnna.colors import *
 
 VERSION = "0.5 alpha"
 ARGUMENTS = len(sys.argv)
+ANS = "Y"
 
 BGREY = "\x1b[100m"
 
@@ -31,9 +32,10 @@ class Language:
             for part_of_speech in ['abstract', 'noun', 'verb', 'doer', 'place']:
                 if word in getattr(glyph, part_of_speech).split("/"):
                     if part_of_speech == "abstract":
-                        return f"{BLUE}{BOLD}{glyph.abstract.upper()}{ENDC} ({BOLD}{BLACK}{part_of_speech.capitalize()}{ENDC})"
+                        return f"\n {BOLD}{word.capitalize()}{ENDC} = {BLUE}{BOLD}{glyph.abstract.upper()}{ENDC} ({BOLD}{BLACK}{part_of_speech.capitalize()}{ENDC})"
                     else:
-                        return f"{BOLD}{BLUE}{glyph.abstract.upper()}{ENDC}:{GREEN}{BOLD}{part_of_speech.capitalize()}{ENDC}"
+                        WORDS = [temp_string.capitalize() for temp_string in getattr(glyph, part_of_speech).split("/")]
+                        return f"\n {BOLD}{", ".join(WORDS)}{ENDC} = {BOLD}{BLUE}{glyph.abstract.upper()}{ENDC}:{GREEN}{BOLD}{part_of_speech.capitalize()}{ENDC}"
     @staticmethod
     def glyphsearch(A: str, P: str): # method to search with "glyph, part"
         for glyph in Language.glyphs:
@@ -88,41 +90,52 @@ def list_glyphs():
         x += 1
     print(f"\nDatabase has a total of {CYAN}{str((x-1)*5)}{ENDC} glyps.\n")
 
-clear_screen()
-print(f" {CYAN}Merrian Dictionary.{ENDC} {BOLD}{BLACK}Version{ENDC} {BOLD}{CYAN}{VERSION}{ENDC}")
+def dictionary_search():
+    clear_screen()
+    print(f" {CYAN}Merrian Dictionary.{ENDC} {BOLD}{BLACK}Version{ENDC} {BOLD}{CYAN}{VERSION}{ENDC}")
 
-if ARGUMENTS > 1: # Check if arguments were give
-    SEARCH = sys.argv[1].lower() # if yes, then try to use the first argument as the search term.
-else:
-    # if not, ask the user for input.
-    SEARCH = input(f"\n Enter word [{BOLD}word{ENDC}] or a combination [{BOLD}abstact, part{ENDC}] to look up: ").lower()
+    if ARGUMENTS > 1: # Check if arguments were give
+        SEARCH = sys.argv[1].lower() # if yes, then try to use the first argument as the search term.
+    else:
+        # if not, ask the user for input.
+        SEARCH = input(f"\n Enter word [{BOLD}word{ENDC}] or a combination [{BOLD}abstact, part{ENDC}] to look up: ").lower()
 
-if SEARCH == "--list":
-    list_glyphs()
-    sys.exit()
-
-if SEARCH == "--glyph" and len(sys.argv) > 2:
-    print(f"\n  \"{BOLD}{CYAN}{sys.argv[2].lower()}{ENDC}\" found in the following glyphs:\n")
-    for glyph in MERRIAN.glyphs:
-        if sys.argv[2].lower() in repr(glyph).lower():
-            print(glyph)
-    sys.exit()
-
-
-ARGS = SEARCH.split(", ") # split search into two parts, if two words were given.
-
-if not len(ARGS) > 1:
-    WORD = MERRIAN.wordsearch(SEARCH) # Search for a specific word within Merrian
-    try:
-        print("\n [" + BOLD + SEARCH.capitalize() + NOBOLD + "] " + ENDC + WORD + "\n" + ENDC)
-    except:
-        print(f"\n {BOLD}{RED}Error{ENDC}: Word not found in database. Make sure you spelled it correctly. You wrote: [{BOLD}{YELLOW}{SEARCH}{ENDC}]\n In case of multiple entries, make sure you separate them with a comma and a whitespace.\n")
+    if SEARCH == "--list":
+        list_glyphs()
         sys.exit()
+
+    if SEARCH == "--glyph" and len(sys.argv) > 2:
+        print(f"\n  \"{BOLD}{CYAN}{sys.argv[2].lower()}{ENDC}\" found in the following glyphs:\n")
+        for glyph in MERRIAN.glyphs:
+            if sys.argv[2].lower() in repr(glyph).lower():
+                print(glyph)
+        sys.exit()
+
+
+    ARGS = SEARCH.split(", ") # split search into two parts, if two words were given.
+
+    if not len(ARGS) > 1:
+        WORD = MERRIAN.wordsearch(SEARCH) # Search for a specific word within Merrian
+        try:
+            print(WORD + "\n" + ENDC)
+        except:
+            print(f"\n {BOLD}{RED}Error{ENDC}: Word not found in database. Make sure you spelled it correctly. You wrote: [{BOLD}{YELLOW}{SEARCH}{ENDC}]\n In case of multiple entries, make sure you separate them with a comma and a whitespace.\n")
+            sys.exit()
+        
+    else:
+        try:
+            WORD = MERRIAN.glyphsearch(ARGS[0], ARGS[1]) # Search for abstract+part combination within Merrian
+            print(f"\n {WORD}\n")
+        except:
+            print(f"\n {BOLD}{RED}Error{ENDC}: Word not found in database. Make sure of spelling. You wrote [{BOLD}{YELLOW}{SEARCH}{ENDC}]\n")
+            sys.exit()
+
+while ANS.lower() in ("y", "yes"):
+    dictionary_search()
     
-else:
-    try:
-        WORD = MERRIAN.glyphsearch(ARGS[0], ARGS[1]) # Search for abstract+part combination within Merrian
-        print(f"\n {WORD}\n")
-    except:
-        print(f"\n {BOLD}{RED}Error{ENDC}: Word not found in database. Make sure of spelling. You wrote [{BOLD}{YELLOW}{SEARCH}{ENDC}]\n")
+    if ARGUMENTS > 1:
         sys.exit()
+
+    ANS = input(" Search for another word, Y/N? [N]: ") or "N"
+
+    print("\n")
