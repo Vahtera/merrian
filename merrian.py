@@ -39,8 +39,7 @@ class Language:
                     else:
                         WORDS = [temp_string.capitalize() for temp_string in getattr(glyph, part_of_speech).split("/")]
                         return f"\n {BOLD}{", ".join(WORDS)}{ENDC} = {BOLD}{BLUE}{glyph.abstract.upper()}{ENDC}:{GREEN}{BOLD}{part_of_speech.capitalize()}{ENDC}"
-                return f"\n {BOLD}{RED}Error{ENDC}: Word not found in database. Make sure of spelling. You wrote [{BOLD}{YELLOW}word{ENDC}]\n"
-                
+
     @staticmethod
     def glyphsearch(A: str, P: str): # method to search with "glyph, part"
         for glyph in Language.glyphs:
@@ -97,16 +96,18 @@ def list_glyphs():
     print(f"\nDatabase has a total of {CYAN}{str((x-1)*5)}{ENDC} glyps.\n")
 
 def dictionary_search():
-    clear_screen()
-    print(f" {CYAN}Merrian Dictionary.{ENDC} {BOLD}{BLACK}Version{ENDC} {BOLD}{CYAN}{VERSION}{ENDC}")
-
+    #clear_screen()
+    
     if ARGUMENTS > 1: # Check if arguments were give
         SEARCH = sys.argv[1].lower() # if yes, then try to use the first argument as the search term.
     else:
         # if not, ask the user for input.
-        SEARCH = input(f"\n Enter word [{BOLD}word{ENDC}] or a combination [{BOLD}abstact, part{ENDC}] to look up: ").lower()
+        SEARCH = input(f"\n Enter word [{BOLD}word{ENDC}] or a combination [{BOLD}abstact, part{ENDC}] to look up, or [{BOLD}quit{ENDC}] to quit: ").lower()
+    
+    if SEARCH == "quit":
+        print("\n")
+        sys.exit()
 
-    #ARGS = SEARCH.split(", ") # split search into two parts, if two words were given.
     ARGS = re.split(';\s|,\s|\s',SEARCH)
 
     if SEARCH == "--list":
@@ -140,12 +141,15 @@ def dictionary_search():
             print(f"\n {BOLD}{RED}Error{ENDC}: Word not found in database. Make sure of spelling. You wrote [{BOLD}{YELLOW}{", ".join(ARGS)}{ENDC}]\n")
             #sys.exit()
 
+clear_screen()
+print(f" {CYAN}Merrian Dictionary.{ENDC} {BOLD}{BLACK}Version{ENDC} {BOLD}{CYAN}{VERSION}{ENDC}")
+
 while ANS.lower() in ("y", "yes"):
     dictionary_search()
     
     if ARGUMENTS > 1:
         sys.exit()
 
-    ANS = input(" Search for another word, Y/N? [Y]: ") or "Y"
+    #ANS = input(" Search for another word, Y/N? [Y]: ") or "Y"
 
-    print("\n")
+    #print("\n")
