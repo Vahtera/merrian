@@ -46,7 +46,11 @@ class Language:
         for glyph in Language.glyphs:
             if A in getattr(glyph, 'abstract').split("/"):
                 ANSWER = getattr(glyph, P)
-                return f"[{BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}:{BOLD}{GREEN}{P.capitalize()}{ENDC}] {BOLD}{WHITE}{ANSWER.capitalize()}{ENDC}"
+                temp_string = ANSWER.split("/")
+                if P == "verb":
+                    return f"[{BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}:{BOLD}{GREEN}{P.capitalize()}{ENDC}] {BOLD}{WHITE}to {", to ".join(temp_string)}{ENDC}"
+                else:
+                    return f"[{BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}:{BOLD}{GREEN}{P.capitalize()}{ENDC}] {BOLD}{WHITE}{", ".join(temp_string)}{ENDC}"
         return f"\n {BOLD}{RED}Error{ENDC}: Word not found in database. Make sure of spelling. You wrote [{BOLD}{YELLOW}{A}, {P}{ENDC}]\n"
 
 MERRIAN = Language() # Define Merrian as the language
@@ -60,11 +64,11 @@ class Glyph:
         self.place = place
         MERRIAN.glyphs.append(self)
     def __repr__(self):
-        return (f"  {BOLD}{BLUE}{self.abstract.upper()}{ENDC}: {BOLD}{BLACK}(Abstract){ENDC} \n"
-        f"    :{GREEN}{self.noun.capitalize()} {BOLD}{BLACK}(Noun){ENDC} \n"
-        f"    :{GREEN}{self.verb.capitalize()} {BOLD}{BLACK}(Verb){ENDC} \n"
-        f"    :{GREEN}{self.doer.capitalize()} {BOLD}{BLACK}(Doer){ENDC} \n"
-        f"    :{GREEN}{self.place.capitalize()} {BOLD}{BLACK}(Place){ENDC}\n")
+        return (f"  {BOLD}{BLUE}{self.abstract.upper()}{ENDC} {BOLD}{BLACK}(Abstract){ENDC} \n"
+        f"     {BOLD}{BLACK}(Noun){ENDC}: {GREEN}{", ".join(self.noun.split("/"))}{ENDC}\n"
+        f"     {BOLD}{BLACK}(Verb){ENDC}: {GREEN}to {", to ".join(self.verb.split("/"))}{ENDC}\n"
+        f"     {BOLD}{BLACK}(Doer){ENDC}: {GREEN}{", ".join(self.doer.split("/"))}{ENDC}\n"
+        f"    {BOLD}{BLACK}(Place){ENDC}: {GREEN}{", ".join(self.place.split("/"))}{ENDC}\n")
 
 DICT = [] # Main dictionary to read the glyphs into
 
