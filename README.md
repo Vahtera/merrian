@@ -12,5 +12,11 @@
 # Version 0.3 alpha - Added ANSI color to output
 # Version 0.4 alpha - Added ability to search for multiple words within one glyph definition
 # Version 0.5 alpha - Added ability list all glyphs with --list
+# Version 0.6 alpha - Added --glyph command line functionality.
+# Version 0.7 alpha - Added ability to search a new word without quitting
+# Version 0.8 alpha - Added ability to use --glyph from within program
+# Version 0.8 - Bugfixes and error handling.
 #
 ```
+Screenshot:
+![Merrian Screenshot](https://imgur.com/fF6eCoN.png)
