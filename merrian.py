@@ -14,6 +14,7 @@
 # Version 0.6 alpha - Added --glyph command line functionality.
 # Version 0.7 alpha - Added ability to search a new word without quitting
 # Version 0.8 alpha - Added ability to use --glyph from within program
+# Version 0.8 - Bugfixes and error handling.
 #
 
 import sys
@@ -21,7 +22,7 @@ import re
 from libAnna.functions import clear_screen
 from libAnna.colors import *
 
-VERSION = "0.8 alpha"
+VERSION = "0.8"
 ARGUMENTS = len(sys.argv)
 ANS = "Y"
 
@@ -63,7 +64,7 @@ class Glyph:
         f"    :{GREEN}{self.noun.capitalize()} {BOLD}{BLACK}(Noun){ENDC} \n"
         f"    :{GREEN}{self.verb.capitalize()} {BOLD}{BLACK}(Verb){ENDC} \n"
         f"    :{GREEN}{self.doer.capitalize()} {BOLD}{BLACK}(Doer){ENDC} \n"
-        f"    :{GREEN}{self.place.capitalize()} {BOLD}{BLACK}(Place){ENDC}\n\n")
+        f"    :{GREEN}{self.place.capitalize()} {BOLD}{BLACK}(Place){ENDC}\n")
 
 DICT = [] # Main dictionary to read the glyphs into
 
@@ -96,25 +97,30 @@ def list_glyphs():
     print(f"\nDatabase has a total of {CYAN}{str((x-1)*5)}{ENDC} glyps.\n")
 
 def dictionary_search():
-    #clear_screen()
-    
+    global ARGUMENTS
+        
     if ARGUMENTS > 1: # Check if arguments were give
-        SEARCH = sys.argv[1].lower() # if yes, then try to use the first argument as the search term.
+        temp_list = sys.argv
+        del temp_list[0]
+        SEARCH = ", ".join(temp_list).lower().strip() # if yes, then try to use the first argument as the search term.
     else:
         # if not, ask the user for input.
-        SEARCH = input(f"\n Enter word [{BOLD}word{ENDC}] or a combination [{BOLD}abstact, part{ENDC}] to look up, or [{BOLD}quit{ENDC}] to quit: ").lower()
+        SEARCH = input(f"\n Enter word [{BOLD}word{ENDC}] or a combination [{BOLD}abstact, part{ENDC}] to look up, or [{BOLD}quit{ENDC}] to quit: ").lower().strip()
     
     if SEARCH == "quit":
         print("\n")
         sys.exit()
 
-    ARGS = re.split(';\s|,\s|\s',SEARCH)
+    if " " in SEARCH:
+        ARGS = re.split('; |, | ', SEARCH)
+    else:
+        ARGS = SEARCH
 
     if SEARCH == "--list":
         list_glyphs()
         sys.exit()
 
-    if len(sys.argv) > 1 and sys.argv[1] == "--glyph":
+    if ARGUMENTS > 2 and sys.argv[1] == "--glyph":
         ARGS = sys.argv
         del ARGS[0]
 
@@ -125,7 +131,7 @@ def dictionary_search():
                 print(glyph)
         return True
 
-    if not len(ARGS) > 1:
+    if isinstance(ARGS, str):
         WORD = MERRIAN.wordsearch(SEARCH) # Search for a specific word within Merrian
         try:
             print(WORD + "\n" + ENDC)
@@ -141,7 +147,11 @@ def dictionary_search():
             print(f"\n {BOLD}{RED}Error{ENDC}: Word not found in database. Make sure of spelling. You wrote [{BOLD}{YELLOW}{", ".join(ARGS)}{ENDC}]\n")
             #sys.exit()
 
-clear_screen()
+if not ARGUMENTS > 1:
+    clear_screen()
+else:
+    print("\n")
+
 print(f" {CYAN}Merrian Dictionary.{ENDC} {BOLD}{BLACK}Version{ENDC} {BOLD}{CYAN}{VERSION}{ENDC}")
 
 while ANS.lower() in ("y", "yes"):
