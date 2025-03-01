@@ -1,5 +1,4 @@
 ''' Program to search for glyphs and definitions withing a language known as "Merrian".'''
-
 #
 # Copyright (c) Anna Vahtera 2025
 # With the help of Reddit user https://www.reddit.com/user/g13n4/
@@ -29,9 +28,11 @@ ANS = "Y"
 BGREY = "\x1b[100m"
 
 class Language:
+    '''Class to store the language'''
     glyphs = []
     @staticmethod
     def wordsearch(word: str): # method to search with a word definition
+        '''Function to search individual words for a ABSTRACT+part combination'''
         for glyph in Language.glyphs:
             for part_of_speech in ['abstract', 'noun', 'verb', 'doer', 'place']:
                 if word in getattr(glyph, part_of_speech).split("/"):
@@ -43,19 +44,20 @@ class Language:
 
     @staticmethod
     def glyphsearch(A: str, P: str): # method to search with "glyph, part"
+        '''Function to search for ABSTRACT+part for individual words'''
         for glyph in Language.glyphs:
             if A in getattr(glyph, 'abstract').split("/"):
                 ANSWER = getattr(glyph, P)
                 temp_string = ANSWER.split("/")
                 if P == "verb":
                     return f"[{BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}:{BOLD}{GREEN}{P.capitalize()}{ENDC}] {BOLD}{WHITE}to {", to ".join(temp_string)}{ENDC}"
-                else:
-                    return f"[{BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}:{BOLD}{GREEN}{P.capitalize()}{ENDC}] {BOLD}{WHITE}{", ".join(temp_string)}{ENDC}"
+                return f"[{BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}:{BOLD}{GREEN}{P.capitalize()}{ENDC}] {BOLD}{WHITE}{", ".join(temp_string)}{ENDC}"
         return f"\n {BOLD}{RED}Error{ENDC}: Word not found in database. Make sure of spelling. You wrote [{BOLD}{YELLOW}{A}, {P}{ENDC}]\n"
 
 MERRIAN = Language() # Define Merrian as the language
 
 class Glyph:
+    '''Class to store individual Glyphs'''
     def __init__(self, abstract: str, noun: str, verb: str, doer: str, place: str):
         self.abstract = abstract
         self.noun = noun
@@ -86,14 +88,14 @@ def open_dictionary(F_NAME):
 DICT = open_dictionary("merrian.txt") # read the main language file into the Dictionary.
 
 def list_glyphs():
+    '''Function to print out the whole dictionary'''
     PADDING = 20
     print("\n")
     print(" ".rjust(4," ") + BOLD + YELLOW + "ABSTRACT".ljust(PADDING, " ") + " " + "Noun".ljust(PADDING, " ") + " " + "Verb".ljust(PADDING, " ") + " " + "Doer".ljust(PADDING, " ") + " " + "Place" + ENDC)
-    #print("=".ljust(PADDING, "=")[:PADDING] + " =".ljust(PADDING, "=")[:PADDING] + "  =".ljust(PADDING, "=")[:PADDING] + "   =".ljust(PADDING, "=")[:PADDING] + "    =".ljust(PADDING, "=")[:PADDING])
     print(" ".rjust(4," ") + "=".ljust(PADDING, "=") + " " + "=".ljust(PADDING, "=") + " " + "=".ljust(PADDING, "=") + " " + "=".ljust(PADDING, "=") + " " + "=".ljust(PADDING, "="))
     x = 1
     for glyph in MERRIAN.glyphs:
-        if (x % 2):
+        if x % 2:
             print(f"{str(x).rjust(2,"0")}: {BOLD}{BLACK}{glyph.abstract.upper().ljust(PADDING, " ")[:PADDING]}{ENDC} {glyph.noun.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.verb.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.doer.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.place.capitalize()[:PADDING]}{ENDC}")
         else:
             print(f"{str(x).rjust(2,"0")}: {BGREY}{BLACK}{glyph.abstract.upper().ljust(PADDING, " ")[:PADDING]}{ENDC}{BGREY} {glyph.noun.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.verb.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.doer.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.place.capitalize().ljust(PADDING, " ")[:PADDING]}{ENDC}")
@@ -101,6 +103,7 @@ def list_glyphs():
     print(f"\nDatabase has a total of {CYAN}{str((x-1)*5)}{ENDC} glyps.\n")
 
 def dictionary_search():
+    '''Main function to actually search through the dictionary'''
     global ARGUMENTS
     SEARCH = ""
 
@@ -111,7 +114,7 @@ def dictionary_search():
     else:
         # if not, ask the user for input.
         SEARCH = input(f"\n Enter word [{BOLD}word{ENDC}] or a combination [{BOLD}abstact, part{ENDC}] to look up, or [{BOLD}--quit{ENDC}] to quit: ").lower().strip()
-    
+
     if SEARCH == "--quit":
         print("\n")
         sys.exit()
@@ -143,7 +146,6 @@ def dictionary_search():
         except:
             print(f"\n {BOLD}{RED}Error{ENDC}: Word not found in database. Make sure you spelled it correctly. You wrote: [{BOLD}{YELLOW}{ARGS[0]}{ENDC}]\n In case of multiple entries, make sure you separate them with a comma and a whitespace.\n")
             #sys.exit()
-        
     else:
         try:
             WORD = MERRIAN.glyphsearch(ARGS[0], ARGS[1]) # Search for abstract+part combination within Merrian
@@ -161,6 +163,6 @@ print(f" {CYAN}Merrian Dictionary.{ENDC} {BOLD}{BLACK}Version{ENDC} {BOLD}{CYAN}
 
 while ANS.lower() in ("y", "yes"):
     dictionary_search()
-    
+
     if ARGUMENTS > 1:
         sys.exit()
