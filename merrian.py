@@ -102,16 +102,17 @@ def list_glyphs():
 
 def dictionary_search():
     global ARGUMENTS
-        
+    SEARCH = ""
+
     if ARGUMENTS > 1: # Check if arguments were give
         temp_list = sys.argv
         del temp_list[0]
         SEARCH = ", ".join(temp_list).lower().strip() # if yes, then try to use the first argument as the search term.
     else:
         # if not, ask the user for input.
-        SEARCH = input(f"\n Enter word [{BOLD}word{ENDC}] or a combination [{BOLD}abstact, part{ENDC}] to look up, or [{BOLD}quit{ENDC}] to quit: ").lower().strip()
+        SEARCH = input(f"\n Enter word [{BOLD}word{ENDC}] or a combination [{BOLD}abstact, part{ENDC}] to look up, or [{BOLD}--quit{ENDC}] to quit: ").lower().strip()
     
-    if SEARCH == "quit":
+    if SEARCH == "--quit":
         print("\n")
         sys.exit()
 
