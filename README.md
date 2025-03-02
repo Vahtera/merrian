@@ -25,5 +25,10 @@
 > 
 > Edit *words.py.example* to include word definitions and rename to *words.py*.
 
+> [!IMPORTANT]
+> Edit **DICTIONARY_FILE** variable at the start of merrian.py to point to merrian.txt
+> 
+> Comment/Uncomment import lines at the start of merrian.py to point to words.py
+
 Screenshot:
 ![Merrian Screenshot](https://imgur.com/fF6eCoN.png)
