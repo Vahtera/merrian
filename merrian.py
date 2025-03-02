@@ -130,6 +130,26 @@ class Glyph:
 
 DICT = [] # Main dictionary to read the glyphs into
 
+def display_help():
+    word_pad = 25
+    '''function to display help'''
+    print("\n Usage: py merrian.py [arguments] [search terms]\n")
+    print("Supported arguments:\n")
+    print("-h, --help".ljust(word_pad, " ") + ": Display this help page.")
+    print("--update".ljust(word_pad, " ") + ": Update module merrian_language. (Word definitions.)")
+    print("--list".ljust(word_pad, " ") + ": List all glyphs and complex words in the dictionary.")
+    print("--glyph ['search']".ljust(word_pad, " ") + ": Looks for glyphs containing 'search' and displays all of them.\n")
+    print("Search terms:\n")
+    print("'word'".ljust(word_pad, " ") + ": Searches for 'word' and displays the first definition.")
+    print("'word1, word2'".ljust(word_pad, " ") + ": Searches for abstract 'word1' and returns the word definition from part 'word2'.\n")
+    print("Examples:\n")
+    print("py merrian.py day".ljust(word_pad, " ") + ": Returns 'DAY (Abstract)'.")
+    print("py merrian.py moon".ljust(word_pad, " ") + ": Returns 'moon = NIGHT/DARK/DARKNESS:Noun'.")
+    print("py merrian.py day, noun".ljust(word_pad, " ") + ": Returns '[DAY/LIGHT:Noun] sun'.")
+    print("py merrian.py river".ljust(word_pad, " ") + ": Returns 'river = [long (LARGE/GIGANTIC + DISTANCE)]-[water (WET:Noun)]'.")
+    print("\n")
+    sys.exit()
+
 # Dictionary file needs to include five comma-separated strings per line.
 def open_dictionary(F_NAME):
     '''Read the Glyph definitions from a list'''
@@ -188,6 +208,9 @@ def dictionary_search():
     if SEARCH == "--quit":
         print("\n")
         sys.exit()
+
+    if SEARCH in ["--help", "-h"]:
+        display_help()
 
     if " " in SEARCH:
         ARGS = re.split('; |, | ', SEARCH)
