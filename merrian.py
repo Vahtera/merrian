@@ -14,6 +14,7 @@
 # Version 0.7 alpha - Added ability to search a new word without quitting
 # Version 0.8 alpha - Added ability to use --glyph from within program
 # Version 0.8 - Bugfixes and error handling.
+# Version 0.9 - Added ability to store and search for complex words (consisting of multiple glyphs)
 #
 
 import sys
@@ -21,7 +22,7 @@ import re
 from libAnna.functions import clear_screen
 from libAnna.colors import *
 
-VERSION = "0.8"
+VERSION = "0.9"
 ARGUMENTS = len(sys.argv)
 ANS = "Y"
 
@@ -41,6 +42,7 @@ class Language:
                     else:
                         WORDS = [temp_string.capitalize() for temp_string in getattr(glyph, part_of_speech).split("/")]
                         return f"\n {BOLD}{", ".join(WORDS)}{ENDC} = {BOLD}{BLUE}{glyph.abstract.upper()}{ENDC}:{GREEN}{BOLD}{part_of_speech.capitalize()}{ENDC}"
+        return "NotFound"
 
     @staticmethod
     def glyphsearch(A: str, P: str): # method to search with "glyph, part"
@@ -53,6 +55,18 @@ class Language:
                     return f"[{BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}:{BOLD}{GREEN}{P.capitalize()}{ENDC}] {BOLD}{WHITE}to {", to ".join(temp_string)}{ENDC}"
                 return f"[{BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}:{BOLD}{GREEN}{P.capitalize()}{ENDC}] {BOLD}{WHITE}{", ".join(temp_string)}{ENDC}"
         return f"\n {BOLD}{RED}Error{ENDC}: Word not found in database. Make sure of spelling. You wrote [{BOLD}{YELLOW}{A}, {P}{ENDC}]\n"
+    @staticmethod
+    def simpleglyphsearch(A: str, P: str): # method to search with "glyph, part"
+        '''Function to search for ABSTRACT+part for individual words and return a simple string'''
+        for glyph in Language.glyphs:
+            if A in getattr(glyph, 'abstract').split("/"):
+                ANSWER = getattr(glyph, P)
+                temp_string = ANSWER.split("/")
+                if P == "verb":
+                    return f"[{BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}:{BOLD}{GREEN}{P.capitalize()}{ENDC}]"
+                return f"[{BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}:{BOLD}{GREEN}{P.capitalize()}{ENDC}]"
+        return f"\n {BOLD}{RED}Error{ENDC}: Word not found in database. Make sure of spelling. You wrote [{BOLD}{YELLOW}{A}, {P}{ENDC}]\n"
+
 
 MERRIAN = Language() # Define Merrian as the language
 
@@ -102,6 +116,18 @@ def list_glyphs():
         x += 1
     print(f"\nDatabase has a total of {CYAN}{str((x-1)*5)}{ENDC} glyps.\n")
 
+def get_glyph(abstract):
+    for glyph in MERRIAN.glyphs:
+        if abstract in getattr(glyph, 'abstract').split("/"):
+            #return ", ".join(getattr(glyph, 'abstract').split("/")).upper()
+            return f"{BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}"
+    return "NotFound"
+
+word_list = {
+    "river": f"[{get_glyph("large")} + {get_glyph("distance")}]-{MERRIAN.simpleglyphsearch('wet', 'noun')}",
+    "doctor": f"{MERRIAN.simpleglyphsearch('labor', 'doer')}-[{get_glyph("life")}]"
+}
+
 def dictionary_search():
     '''Main function to actually search through the dictionary'''
     global ARGUMENTS
@@ -141,10 +167,15 @@ def dictionary_search():
 
     if isinstance(ARGS, str):
         WORD = MERRIAN.wordsearch(SEARCH) # Search for a specific word within Merrian
-        try:
+        
+        if not WORD == "NotFound":
             print(WORD + "\n" + ENDC)
-        except:
-            print(f"\n {BOLD}{RED}Error{ENDC}: Word not found in database. Make sure you spelled it correctly. You wrote: [{BOLD}{YELLOW}{ARGS[0]}{ENDC}]\n In case of multiple entries, make sure you separate them with a comma and a whitespace.\n")
+        else:
+            WORD = word_list.get(SEARCH, "NotFound")
+            if not WORD == "NotFound":
+                print("\n " + WORD + "\n" + ENDC)
+            else:
+                print(f"\n {BOLD}{RED}Error{ENDC}: Word not found in database. Make sure you spelled it correctly. You wrote: [{BOLD}{YELLOW}{SEARCH}{ENDC}]\n In case of multiple entries, make sure you separate them with a comma and a whitespace.\n")
             #sys.exit()
     else:
         try:
