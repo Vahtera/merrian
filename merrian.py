@@ -19,6 +19,7 @@
 
 import sys
 import re
+import ast
 from libAnna.functions import clear_screen
 from libAnna.colors import *
 
@@ -123,10 +124,9 @@ def get_glyph(abstract):
             return f"{BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}"
     return "NotFound"
 
-word_list = {
-    "river": f"[{get_glyph("large")} + {get_glyph("distance")}]-{MERRIAN.simpleglyphsearch('wet', 'noun')}",
-    "doctor": f"{MERRIAN.simpleglyphsearch('labor', 'doer')}-[{get_glyph("life")}]"
-}
+with open("merrian_words.txt", "r", encoding="utf-8") as f:
+    data = f.read()
+word_list = ast.literal_eval(data)
 
 def dictionary_search():
     '''Main function to actually search through the dictionary'''
