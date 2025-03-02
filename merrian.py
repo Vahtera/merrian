@@ -180,9 +180,9 @@ def list_glyphs():
     
     for glyph in MERRIAN.glyphs:
         if row % 2:
-            print(f"{str(x).rjust(2,"0")}: {BOLD}{BLACK}{glyph.abstract.upper().ljust(PADDING, " ")[:PADDING]}{ENDC} {glyph.noun.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.verb.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.doer.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.place.capitalize()[:PADDING]}{ENDC}")
+            print(f"{str(row).rjust(2,"0")}: {BOLD}{BLACK}{glyph.abstract.upper().ljust(PADDING, " ")[:PADDING]}{ENDC} {glyph.noun.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.verb.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.doer.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.place.capitalize()[:PADDING]}{ENDC}")
         else:
-            print(f"{str(x).rjust(2,"0")}: {BGREY}{BLACK}{glyph.abstract.upper().ljust(PADDING, " ")[:PADDING]}{ENDC}{BGREY} {glyph.noun.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.verb.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.doer.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.place.capitalize().ljust(PADDING, " ")[:PADDING]}{ENDC}")
+            print(f"{str(row).rjust(2,"0")}: {BGREY}{BLACK}{glyph.abstract.upper().ljust(PADDING, " ")[:PADDING]}{ENDC}{BGREY} {glyph.noun.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.verb.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.doer.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.place.capitalize().ljust(PADDING, " ")[:PADDING]}{ENDC}")
         row += 1
 
     for temp_word in MERRIAN.glyphs:
