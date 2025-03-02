@@ -54,4 +54,4 @@ py merrian.py river      : Returns 'river = [long (LARGE/GIGANTIC + DISTANCE)]-[
 > Edit **DICTIONARY_FILE** on *line 46* in merrian.py to point to merrian.txt (default working directory).
 
 Screenshot:
-![Merrian Screenshot](https://imgur.com/fF6eCoN.png)
+![Merrian Screenshot](https://imgur.com/sx2tHIO.png)
