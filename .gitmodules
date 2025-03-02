@@ -2,7 +2,3 @@
 	path = libAnna
 	url = https://github.com/Vahtera/libAnna
 	branch = main
-[submodule "merrian_language"]
-	path = merrian_language
-	url = https://github.com/Vahtera/merrian_language
-	branch = master
