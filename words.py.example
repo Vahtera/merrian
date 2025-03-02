@@ -1,0 +1,7 @@
+from libAnna.colors import *
+def init(dict):
+    global list
+    list = {
+        "river": f"[{CYAN}long{ENDC} ({dict.get_glyph("large")} + {dict.get_glyph("distance")})]-[{dict.simpleglyphsearch('wet', 'noun')}]",
+        "word": f"combination of glyphs that make up the word"
+    }
