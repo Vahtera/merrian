@@ -16,7 +16,14 @@
 # Version 0.7 alpha - Added ability to search a new word without quitting
 # Version 0.8 alpha - Added ability to use --glyph from within program
 # Version 0.8 - Bugfixes and error handling.
+# Version 0.9 - Added ability to store and search for complex words (consisting of multiple glyphs)
+# Version 1.0a - Moved complex words to an external file and changed into importing it. 
 #
 ```
+> [!IMPORTANT]
+> Edit *merrian.txt.example* to include word definitions and rename to *merrian.txt*.
+> 
+> Edit *words.py.example* to include word definitions and rename to *words.py*.
+
 Screenshot:
 ![Merrian Screenshot](https://imgur.com/fF6eCoN.png)
