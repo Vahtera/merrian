@@ -22,6 +22,7 @@
 # Version 1.0.x - Latest word definition updates.
 # Version 1.1.0 - Added ability to update definitions, if using merrian_language module.
 # Version 1.1.x - Latest word definition updates.
+# Version 1.2 - Changing over to x.y + rolling git commmit count as version numbering.
 #
 ```
 > [!IMPORTANT]
