@@ -51,7 +51,7 @@ py merrian.py day, noun  : Returns '[DAY/LIGHT:Noun] sun'.
 py merrian.py river      : Returns 'river = [long (LARGE/GIGANTIC + DISTANCE)]-[water (WET:Noun)]'.
 ```
 > [!IMPORTANT]
-> Edit **DICTIONARY_FILE** on *line 39* in merrian.py to point to merrian.txt (default working directory).
+> Edit **DICTIONARY_FILE** on *line 46* in merrian.py to point to merrian.txt (default working directory).
 
 Screenshot:
 ![Merrian Screenshot](https://imgur.com/fF6eCoN.png)
