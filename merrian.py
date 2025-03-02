@@ -133,7 +133,7 @@ def list_glyphs():
             print(f"{str(x).rjust(2,"0")}: {BGREY}{BLACK}{glyph.abstract.upper().ljust(PADDING, " ")[:PADDING]}{ENDC}{BGREY} {glyph.noun.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.verb.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.doer.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.place.capitalize().ljust(PADDING, " ")[:PADDING]}{ENDC}")
         x += 1
     print("\nComplex words:\n")
-    for y in words.list:
+    for y in words.word_list:
         print(y.ljust(10, " ") + ": " + words.list[y])
         z += 1
     print(f"\nDatabase has a total of {CYAN}{str((x-1)*5)}{ENDC} glyps and {CYAN}{str(z)}{ENDC} word definitions.\n")
