@@ -20,6 +20,7 @@
 # Version 1.0.x - Latest word definition updates.
 # Version 1.1.0 - Added ability to update definitions, if using merrian_language module.
 # Version 1.1.x - Latest word definition updates.
+# Version 1.2 - Changing over to x.y + rolling git commmit count as version numbering.
 #
 
 import sys
@@ -54,7 +55,7 @@ from libAnna.colors import *
 cmd = "git rev-list --count master"
 output = subprocess.check_output(cmd).strip()
 
-VERSION = "1.1." + str(output)[2:-1]
+VERSION = "1.2 Release: " + str(output)[2:-1]
 ARGUMENTS = len(sys.argv)
 ANS = "Y"
 
@@ -260,7 +261,7 @@ if not ARGUMENTS > 1:
 else:
     print("\n")
 
-print(f" {CYAN}Merrian Dictionary.{ENDC} {BOLD}{BLACK}Version{ENDC} {BOLD}{CYAN}{VERSION}{ENDC}{BOLD}{BLACK}, Word Definitions {ENDC}{BOLD}{CYAN}{words.VERSION}{ENDC}")
+print(f" {CYAN}Merrian Dictionary.{ENDC} {BOLD}{BLACK}Version{ENDC} {BOLD}{CYAN}{VERSION}{ENDC}{BOLD}{BLACK}, Database version: {ENDC}{BOLD}{CYAN}{words.VERSION}{ENDC}")
 
 while ANS.lower() in ("y", "yes"):
     dictionary_search()
