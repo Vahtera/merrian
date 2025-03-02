@@ -17,6 +17,7 @@
 # Version 0.9 - Added ability to store and search for complex words (consisting of multiple glyphs)
 # Version 1.0a - Moved complex words to an external file and changed into importing it. 
 # Version 1.0b - Fixed most of the bugs.
+# Version 1.0.x - Latest word definition updates.
 #
 
 import sys
@@ -27,7 +28,7 @@ from merrian_language import words # Comment this line if you are not using merr
 from libAnna.functions import clear_screen
 from libAnna.colors import *
 
-VERSION = "1.0b"
+VERSION = "1.0.2"
 ARGUMENTS = len(sys.argv)
 ANS = "Y"
 DICTIONARY_FILE = "merrian_language\\merrian.txt"
