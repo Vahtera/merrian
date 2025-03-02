@@ -257,7 +257,7 @@ if not ARGUMENTS > 1:
 else:
     print("\n")
 
-print(f" {CYAN}Merrian Dictionary.{ENDC} {BOLD}{BLACK}Version{ENDC} {BOLD}{CYAN}{VERSION}{ENDC}")
+print(f" {CYAN}Merrian Dictionary.{ENDC} {BOLD}{BLACK}Version{ENDC} {BOLD}{CYAN}{VERSION}{ENDC}{BOLD}{BLACK}, Word Definitions {ENDC}{BOLD}{CYAN}{words.VERSION}{ENDC}")
 
 while ANS.lower() in ("y", "yes"):
     dictionary_search()
