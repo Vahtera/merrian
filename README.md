@@ -28,7 +28,28 @@
 > Edit *merrian.txt.example* to include word definitions and rename to *merrian.txt*.
 > 
 > Edit *words.py.example* to include word definitions and rename to *words.py*.
+```
+Usage: py merrian.py [arguments] [search terms]
 
+Supported arguments:
+
+-h, --help               : Display this help page.
+--update                 : Update module merrian_language. (Word definitions.)
+--list                   : List all glyphs and complex words in the dictionary.
+--glyph ['search']       : Looks for glyphs containing 'search' and displays all of them.
+
+Search terms:
+
+'word'                   : Searches for 'word' and displays the first definition.
+'word1, word2'           : Searches for abstract 'word1' and returns the word definition from part 'word2'.
+
+Examples:
+
+py merrian.py day        : Returns 'DAY (Abstract)'.
+py merrian.py moon       : Returns 'moon = NIGHT/DARK/DARKNESS:Noun'.
+py merrian.py day, noun  : Returns '[DAY/LIGHT:Noun] sun'.
+py merrian.py river      : Returns 'river = [long (LARGE/GIGANTIC + DISTANCE)]-[water (WET:Noun)]'.
+```
 > [!IMPORTANT]
 > Edit **DICTIONARY_FILE** on *line 39* in merrian.py to point to merrian.txt (default working directory).
 
