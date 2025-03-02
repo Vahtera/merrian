@@ -189,7 +189,7 @@ def dictionary_search():
         if not WORD == "NotFound":
             print(WORD + "\n" + ENDC)
         else:
-            WORD = words.list.get(SEARCH, "NotFound")
+            WORD = words.word_list.get(SEARCH, "NotFound")
             if not WORD == "NotFound":
                 print("\n " + BOLD + WHITE + SEARCH + " = " + ENDC + WORD + "\n" + ENDC)
             else:
