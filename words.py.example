@@ -1,4 +1,4 @@
-from libAnna.colors import *
+VERSION = "0.0"
 def init(dict):
     global list
     list = {
