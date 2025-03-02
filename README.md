@@ -17,7 +17,11 @@
 # Version 0.8 alpha - Added ability to use --glyph from within program
 # Version 0.8 - Bugfixes and error handling.
 # Version 0.9 - Added ability to store and search for complex words (consisting of multiple glyphs)
-# Version 1.0a - Moved complex words to an external file and changed into importing it. 
+# Version 1.0a - Moved complex words to an external file and changed into importing it.
+# Version 1.0b - Fixed most of the bugs.
+# Version 1.0.x - Latest word definition updates.
+# Version 1.1.0 - Added ability to update definitions, if using merrian_language module.
+# Version 1.1.x - Latest word definition updates.
 #
 ```
 > [!IMPORTANT]
