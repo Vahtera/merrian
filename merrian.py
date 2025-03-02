@@ -26,6 +26,7 @@ import sys
 import re
 import ast
 import importlib.util
+import subprocess
 from os import system
 
 module_name = "merrian_language"
@@ -50,8 +51,10 @@ else:
 
 from libAnna.functions import clear_screen
 from libAnna.colors import *
+cmd = "git rev-list --count master"
+output = subprocess.check_output(cmd).strip()
 
-VERSION = "1.1.1"
+VERSION = "1.1." + str(output)[2:-1]
 ARGUMENTS = len(sys.argv)
 ANS = "Y"
 
