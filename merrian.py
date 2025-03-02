@@ -61,8 +61,11 @@ class Language:
                 if word in getattr(glyph, part_of_speech).split("/"):
                     if part_of_speech == "abstract":
                         return f"\n {BOLD}{word.capitalize()}{ENDC} = {BLUE}{BOLD}{glyph.abstract.upper()}{ENDC} ({BOLD}{BLACK}{part_of_speech.capitalize()}{ENDC})"
+                    elif part_of_speech == "verb":
+                        WORDS = [temp_string for temp_string in getattr(glyph, part_of_speech).split("/")]
+                        return f"\n {BOLD}to {", to ".join(WORDS)}{ENDC} = {BOLD}{BLUE}{glyph.abstract.upper()}{ENDC}:{GREEN}{BOLD}{part_of_speech.capitalize()}{ENDC}"
                     else:
-                        WORDS = [temp_string.capitalize() for temp_string in getattr(glyph, part_of_speech).split("/")]
+                        WORDS = [temp_string for temp_string in getattr(glyph, part_of_speech).split("/")]
                         return f"\n {BOLD}{", ".join(WORDS)}{ENDC} = {BOLD}{BLUE}{glyph.abstract.upper()}{ENDC}:{GREEN}{BOLD}{part_of_speech.capitalize()}{ENDC}"
         return "NotFound"
 
