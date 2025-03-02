@@ -6,6 +6,7 @@
 # Ignore actual language file, as it's not (as of yet) licensed for public use
 merrian.txt
 merrian_words.txt
+words.py
 
 # User-specific files
 *.rsuser
