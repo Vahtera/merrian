@@ -18,6 +18,8 @@
 # Version 1.0a - Moved complex words to an external file and changed into importing it. 
 # Version 1.0b - Fixed most of the bugs.
 # Version 1.0.x - Latest word definition updates.
+# Version 1.1.0 - Added ability to update definitions, if using merrian_language module.
+# Version 1.1.x - Latest word definition updates.
 #
 
 import sys
@@ -29,8 +31,13 @@ from os import system
 module_name = "merrian_language"
 spec = importlib.util.find_spec(module_name)
 if spec is not None:
-    print("Updating merrian_language...\n")
-    system('git submodule update --remote --recursive')
+    try:
+        if sys.argv[1] == "--update":
+            print("Updating merrian_language...\n")
+            system('git submodule update --remote --recursive')
+            del sys.argv[1]
+    except IndexError as err:
+        print("Running program...")
     from merrian_language import words
     DICTIONARY_FILE = "merrian_language\\merrian.txt"
 else:
@@ -44,7 +51,7 @@ else:
 from libAnna.functions import clear_screen
 from libAnna.colors import *
 
-VERSION = "1.0.3"
+VERSION = "1.1.1"
 ARGUMENTS = len(sys.argv)
 ANS = "Y"
 
