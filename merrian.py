@@ -174,6 +174,7 @@ def list_glyphs():
     print(" ".rjust(4," ") + BOLD + YELLOW + "ABSTRACT".ljust(PADDING, " ") + " " + "Noun".ljust(PADDING, " ") + " " + "Verb".ljust(PADDING, " ") + " " + "Doer".ljust(PADDING, " ") + " " + "Place" + ENDC)
     print(" ".rjust(4," ") + "=".ljust(PADDING, "=") + " " + "=".ljust(PADDING, "=") + " " + "=".ljust(PADDING, "=") + " " + "=".ljust(PADDING, "=") + " " + "=".ljust(PADDING, "="))
     x = 0
+    k = 0
     z = 1
     
     for glyph in MERRIAN.glyphs:
@@ -186,6 +187,8 @@ def list_glyphs():
         for part in ['abstract', 'noun', 'verb', 'doer', 'place']:
             if not getattr(temp_word, part).lower() == "na":
                 x += 1
+            else:
+                k += 1
     
     print("\nComplex words:\n")
     
@@ -193,7 +196,7 @@ def list_glyphs():
         print(y.ljust(10, " ") + ": " + words.word_list[y])
         z += 1
     
-    print(f"\nDatabase has a total of {CYAN}{str(x)}{ENDC} glyps and {CYAN}{str(z)}{ENDC} word definitions.\n")
+    print(f"\nDatabase has a total of {CYAN}{str(x)}{ENDC} glyps and {CYAN}{str(z)}{ENDC} word definitions. ({GREEN}{str(k)}{ENDC} glyph definitions missing.)\n")
 
 def get_glyph(abstract):
     for glyph in MERRIAN.glyphs:
