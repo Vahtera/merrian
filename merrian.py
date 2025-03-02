@@ -133,7 +133,7 @@ DICT = [] # Main dictionary to read the glyphs into
 def display_help():
     word_pad = 25
     '''function to display help'''
-    print("\n Usage: py merrian.py [arguments] [search terms]\n")
+    print("\nUsage: py merrian.py [arguments] [search terms]\n")
     print("Supported arguments:\n")
     print("-h, --help".ljust(word_pad, " ") + ": Display this help page.")
     print("--update".ljust(word_pad, " ") + ": Update module merrian_language. (Word definitions.)")
