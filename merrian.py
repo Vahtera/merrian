@@ -84,8 +84,8 @@ class Language:
                 ANSWER = getattr(glyph, P)
                 temp_string = ANSWER.split("/")
                 if P == "verb":
-                    return f"[{BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}:{BOLD}{GREEN}{P.capitalize()}{ENDC}] {BOLD}{WHITE}to {", to ".join(temp_string)}{ENDC}"
-                return f"[{BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}:{BOLD}{GREEN}{P.capitalize()}{ENDC}] {BOLD}{WHITE}{", ".join(temp_string)}{ENDC}"
+                    return f"[{BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}:{BOLD}{GREEN}{P.capitalize()}{ENDC}] = {BOLD}{WHITE}to {", to ".join(temp_string)}{ENDC}"
+                return f"[{BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}:{BOLD}{GREEN}{P.capitalize()}{ENDC}] = {BOLD}{WHITE}{", ".join(temp_string)}{ENDC}"
         return f"\n {BOLD}{RED}Error{ENDC}: Word not found in database. Make sure of spelling. You wrote [{BOLD}{YELLOW}{A}, {P}{ENDC}]\n"
 
     @staticmethod
