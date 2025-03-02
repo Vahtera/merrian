@@ -15,15 +15,17 @@
 # Version 0.8 alpha - Added ability to use --glyph from within program
 # Version 0.8 - Bugfixes and error handling.
 # Version 0.9 - Added ability to store and search for complex words (consisting of multiple glyphs)
+# Version 1.0 - Moved complex words to an external file and changed into importing it. 
 #
 
 import sys
 import re
 import ast
+import words
 from libAnna.functions import clear_screen
 from libAnna.colors import *
 
-VERSION = "0.9"
+VERSION = "1.0a"
 ARGUMENTS = len(sys.argv)
 ANS = "Y"
 
@@ -67,6 +69,13 @@ class Language:
                     return f"[{BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}:{BOLD}{GREEN}{P.capitalize()}{ENDC}]"
                 return f"[{BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}:{BOLD}{GREEN}{P.capitalize()}{ENDC}]"
         return f"\n {BOLD}{RED}Error{ENDC}: Word not found in database. Make sure of spelling. You wrote [{BOLD}{YELLOW}{A}, {P}{ENDC}]\n"
+    @staticmethod
+    def get_glyph(abstract):
+        for glyph in Language.glyphs:
+            if abstract in getattr(glyph, 'abstract').split("/"):
+                #return ", ".join(getattr(glyph, 'abstract').split("/")).upper()
+                return f"{BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}"
+        return "NotFound"
 
 
 MERRIAN = Language() # Define Merrian as the language
@@ -124,9 +133,7 @@ def get_glyph(abstract):
             return f"{BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}"
     return "NotFound"
 
-with open("merrian_words.txt", "r", encoding="utf-8") as f:
-    data = f.read()
-word_list = ast.literal_eval(data)
+words.init(MERRIAN)
 
 def dictionary_search():
     '''Main function to actually search through the dictionary'''
@@ -171,7 +178,7 @@ def dictionary_search():
         if not WORD == "NotFound":
             print(WORD + "\n" + ENDC)
         else:
-            WORD = word_list.get(SEARCH, "NotFound")
+            WORD = words.list.get(SEARCH, "NotFound")
             if not WORD == "NotFound":
                 print("\n " + WORD + "\n" + ENDC)
             else:

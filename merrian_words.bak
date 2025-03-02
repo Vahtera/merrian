@@ -1,2 +1,0 @@
-{"river": f"[{get_glyph("large")} + {get_glyph("distance")}]-{MERRIAN.simpleglyphsearch('wet', 'noun')}"},
-{"doctor": f"{MERRIAN.simpleglyphsearch('labor', 'doer')}-[{get_glyph("life")}]"}
