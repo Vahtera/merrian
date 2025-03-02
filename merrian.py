@@ -21,13 +21,15 @@
 import sys
 import re
 import ast
-import words
+#import words # Uncomment this line if you are using words.py in the same directory as merrian.py
+from merrian_language import words # Comment this line if you are not using merrian_language submodule.
 from libAnna.functions import clear_screen
 from libAnna.colors import *
 
 VERSION = "1.0a"
 ARGUMENTS = len(sys.argv)
 ANS = "Y"
+DICTIONARY_FILE = "merrian_language\\merrian.txt"
 
 BGREY = "\x1b[100m"
 
@@ -111,7 +113,7 @@ def open_dictionary(F_NAME):
             T_DICT.append(Glyph(*T_LIST))
     return T_DICT
 
-DICT = open_dictionary("merrian.txt") # read the main language file into the Dictionary.
+DICT = open_dictionary(DICTIONARY_FILE) # read the main language file into the Dictionary.
 
 def list_glyphs():
     '''Function to print out the whole dictionary'''
