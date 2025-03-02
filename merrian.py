@@ -23,15 +23,30 @@
 import sys
 import re
 import ast
-#import words # Uncomment this line if you are using words.py in the same directory as merrian.py
-from merrian_language import words # Comment this line if you are not using merrian_language submodule.
+import importlib.util
+from os import system
+
+module_name = "merrian_language"
+spec = importlib.util.find_spec(module_name)
+if spec is not None:
+    print("Updating merrian_language...\n")
+    system('git submodule update --remote --recursive')
+    from merrian_language import words
+    DICTIONARY_FILE = "merrian_language\\merrian.txt"
+else:
+    try:
+        import words
+        DICTIONARY_FILE = "merrian.txt"
+    except ModuleNotFoundError as err:
+        print("Module merrian_language not loaded, and file words.py not found, aborting.")
+        sys.exit()
+
 from libAnna.functions import clear_screen
 from libAnna.colors import *
 
 VERSION = "1.0.3"
 ARGUMENTS = len(sys.argv)
 ANS = "Y"
-DICTIONARY_FILE = "merrian_language\\merrian.txt"
 
 BGREY = "\x1b[100m"
 
@@ -134,7 +149,7 @@ def list_glyphs():
         x += 1
     print("\nComplex words:\n")
     for y in words.word_list:
-        print(y.ljust(10, " ") + ": " + words.list[y])
+        print(y.ljust(10, " ") + ": " + words.word_list[y])
         z += 1
     print(f"\nDatabase has a total of {CYAN}{str((x-1)*5)}{ENDC} glyps and {CYAN}{str(z)}{ENDC} word definitions.\n")
 
