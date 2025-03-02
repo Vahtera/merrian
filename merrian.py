@@ -173,19 +173,27 @@ def list_glyphs():
     print("\n")
     print(" ".rjust(4," ") + BOLD + YELLOW + "ABSTRACT".ljust(PADDING, " ") + " " + "Noun".ljust(PADDING, " ") + " " + "Verb".ljust(PADDING, " ") + " " + "Doer".ljust(PADDING, " ") + " " + "Place" + ENDC)
     print(" ".rjust(4," ") + "=".ljust(PADDING, "=") + " " + "=".ljust(PADDING, "=") + " " + "=".ljust(PADDING, "=") + " " + "=".ljust(PADDING, "=") + " " + "=".ljust(PADDING, "="))
-    x = 1
+    x = 0
     z = 1
+    
     for glyph in MERRIAN.glyphs:
         if x % 2:
             print(f"{str(x).rjust(2,"0")}: {BOLD}{BLACK}{glyph.abstract.upper().ljust(PADDING, " ")[:PADDING]}{ENDC} {glyph.noun.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.verb.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.doer.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.place.capitalize()[:PADDING]}{ENDC}")
         else:
             print(f"{str(x).rjust(2,"0")}: {BGREY}{BLACK}{glyph.abstract.upper().ljust(PADDING, " ")[:PADDING]}{ENDC}{BGREY} {glyph.noun.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.verb.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.doer.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.place.capitalize().ljust(PADDING, " ")[:PADDING]}{ENDC}")
-        x += 1
+    
+    for temp_word in MERRIAN.glyphs:
+        for part in ['abstract', 'noun', 'verb', 'doer', 'place']:
+            if not getattr(temp_word, part).lower() == "na":
+                x += 1
+    
     print("\nComplex words:\n")
+    
     for y in words.word_list:
         print(y.ljust(10, " ") + ": " + words.word_list[y])
         z += 1
-    print(f"\nDatabase has a total of {CYAN}{str((x-1)*5)}{ENDC} glyps and {CYAN}{str(z)}{ENDC} word definitions.\n")
+    
+    print(f"\nDatabase has a total of {CYAN}{str(x)}{ENDC} glyps and {CYAN}{str(z)}{ENDC} word definitions.\n")
 
 def get_glyph(abstract):
     for glyph in MERRIAN.glyphs:
