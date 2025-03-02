@@ -78,6 +78,7 @@ class Language:
 
     @staticmethod
     def get_glyph(abstract):
+        '''Function to get a simple result for an abstract of a glyph'''
         for glyph in Language.glyphs:
             if abstract in getattr(glyph, 'abstract').split("/"):
                 return f"{BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}"
