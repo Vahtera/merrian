@@ -28,7 +28,7 @@ from merrian_language import words # Comment this line if you are not using merr
 from libAnna.functions import clear_screen
 from libAnna.colors import *
 
-VERSION = "1.0.2"
+VERSION = "1.0.3"
 ARGUMENTS = len(sys.argv)
 ANS = "Y"
 DICTIONARY_FILE = "merrian_language\\merrian.txt"
