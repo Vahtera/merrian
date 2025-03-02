@@ -58,6 +58,7 @@ class Language:
                     return f"[{BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}:{BOLD}{GREEN}{P.capitalize()}{ENDC}] {BOLD}{WHITE}to {", to ".join(temp_string)}{ENDC}"
                 return f"[{BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}:{BOLD}{GREEN}{P.capitalize()}{ENDC}] {BOLD}{WHITE}{", ".join(temp_string)}{ENDC}"
         return f"\n {BOLD}{RED}Error{ENDC}: Word not found in database. Make sure of spelling. You wrote [{BOLD}{YELLOW}{A}, {P}{ENDC}]\n"
+
     @staticmethod
     def simpleglyphsearch(A: str, P: str): # method to search with "glyph, part"
         '''Function to search for ABSTRACT+part for individual words and return a simple string'''
@@ -65,15 +66,16 @@ class Language:
             if A in getattr(glyph, 'abstract').split("/"):
                 ANSWER = getattr(glyph, P)
                 temp_string = ANSWER.split("/")
+                temp_word = getattr(glyph, P).split("/")
                 if P == "verb":
-                    return f"[{BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}:{BOLD}{GREEN}{P.capitalize()}{ENDC}]"
-                return f"[{BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}:{BOLD}{GREEN}{P.capitalize()}{ENDC}]"
+                    return f"{CYAN}to {", to ".join(temp_word)}{ENDC} ({BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}:{BOLD}{GREEN}{P.capitalize()}{ENDC})"
+                return f"{CYAN}{", ".join(temp_word)}{ENDC} ({BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}:{BOLD}{GREEN}{P.capitalize()}{ENDC})"
         return f"\n {BOLD}{RED}Error{ENDC}: Word not found in database. Make sure of spelling. You wrote [{BOLD}{YELLOW}{A}, {P}{ENDC}]\n"
+
     @staticmethod
     def get_glyph(abstract):
         for glyph in Language.glyphs:
             if abstract in getattr(glyph, 'abstract').split("/"):
-                #return ", ".join(getattr(glyph, 'abstract').split("/")).upper()
                 return f"{BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}"
         return "NotFound"
 
@@ -180,7 +182,7 @@ def dictionary_search():
         else:
             WORD = words.list.get(SEARCH, "NotFound")
             if not WORD == "NotFound":
-                print("\n " + WORD + "\n" + ENDC)
+                print("\n " + BOLD + WHITE + SEARCH + " = " + ENDC + WORD + "\n" + ENDC)
             else:
                 print(f"\n {BOLD}{RED}Error{ENDC}: Word not found in database. Make sure you spelled it correctly. You wrote: [{BOLD}{YELLOW}{SEARCH}{ENDC}]\n In case of multiple entries, make sure you separate them with a comma and a whitespace.\n")
             #sys.exit()
