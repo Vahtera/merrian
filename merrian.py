@@ -41,7 +41,7 @@ if spec is not None:
     except IndexError as err:
         print("Running program...")
     from merrian_language import words
-    DICTIONARY_FILE = "merrian_language\\merrian.txt"
+    DICTIONARY_FILE = "merrian_language/merrian.txt"
 else:
     try:
         import words
@@ -52,7 +52,7 @@ else:
 
 from libAnna.functions import clear_screen
 from libAnna.colors import *
-cmd = "git rev-list --count master"
+cmd = ["git", "rev-list", "--count", "master"]
 output = subprocess.check_output(cmd).strip()
 
 VERSION = "1.2 Release: " + str(output)[2:-1]
