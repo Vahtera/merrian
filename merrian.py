@@ -195,7 +195,7 @@ def list_glyphs():
     print("\nComplex words:\n")
     
     for y in words.word_list:
-        print(y.ljust(10, " ") + ": " + words.word_list[y])
+        print(y.ljust(12, " ") + ": " + words.word_list[y])
         z += 1
     
     print(f"\nDatabase has a total of {CYAN}{str(x)}{ENDC} glyps and {CYAN}{str(z)}{ENDC} word definitions. ({GREEN}{str(k)}{ENDC} glyph definitions missing.)\n")
