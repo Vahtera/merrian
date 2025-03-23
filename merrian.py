@@ -23,12 +23,23 @@
 # Version 1.2 - Changing over to x.y + rolling git commmit count as version numbering.
 #
 
+import os
 import sys
 import re
 import ast
 import importlib.util
 import subprocess
 from os import system
+
+script_dir = os.path.dirname(os.path.abspath(__file__))
+os.chdir(script_dir)
+
+SILENT = False
+
+for p in range(0, len(sys.argv)):
+        if sys.argv[p] == "--silent":
+            del sys.argv[p]
+            SILENT = True
 
 module_name = "merrian_language"
 spec = importlib.util.find_spec(module_name)
@@ -41,7 +52,7 @@ if spec is not None:
     except IndexError as err:
         print("Running program...")
     from merrian_language import words
-    DICTIONARY_FILE = "merrian_language/merrian.txt"
+    DICTIONARY_FILE = "./merrian_language/merrian.txt"
 else:
     try:
         import words
@@ -52,18 +63,30 @@ else:
 
 from libAnna.functions import clear_screen
 from libAnna.colors import *
-cmd = ["git", "rev-list", "--count", "master"]
-output = subprocess.check_output(cmd).strip()
 
-VERSION = "1.2 Release: " + str(output)[2:-1]
+if SILENT:
+    VERSION = "Integrated. No version number."
+else:
+    try:
+        cmd = ["git", "rev-list", "--count", "--all"]
+        output = subprocess.check_output(cmd).strip()
+        VERSION = "1.2 Release: " + str(output)[2:-1]
+    except:
+        VERSION = "No Git version present."
 
 ANS = "Y"
-SILENT = False
 
-for p in range(0, len(sys.argv)):
-        if sys.argv[p] == "--silent":
-            del sys.argv[p]
-            SILENT = True
+if SILENT:
+    BOLD = ""
+    ENDC = ""
+    CYAN = ""
+    BLUE = ""
+    GREEN = ""
+    RED = ""
+    YELLOW = ""
+    BLACK = ""
+    WHITE = ""
+    BGREY = ""
 
 ARGUMENTS = len(sys.argv)
 BGREY = "\x1b[100m"
