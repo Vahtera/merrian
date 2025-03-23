@@ -56,9 +56,16 @@ cmd = ["git", "rev-list", "--count", "master"]
 output = subprocess.check_output(cmd).strip()
 
 VERSION = "1.2 Release: " + str(output)[2:-1]
-ARGUMENTS = len(sys.argv)
-ANS = "Y"
 
+ANS = "Y"
+SILENT = False
+
+for p in range(0, len(sys.argv)):
+        if sys.argv[p] == "--silent":
+            del sys.argv[p]
+            SILENT = True
+
+ARGUMENTS = len(sys.argv)
 BGREY = "\x1b[100m"
 
 class Language:
@@ -212,6 +219,7 @@ words.init(MERRIAN)
 def dictionary_search():
     '''Main function to actually search through the dictionary'''
     global ARGUMENTS
+    global SILENT
     SEARCH = ""
 
     if ARGUMENTS > 1: # Check if arguments were give
@@ -269,15 +277,19 @@ def dictionary_search():
             print(f"\n {BOLD}{RED}Error{ENDC}: Word not found in database. Make sure of spelling. You wrote [{BOLD}{YELLOW}{", ".join(ARGS)}{ENDC}]\n")
             #sys.exit()
 
-if not ARGUMENTS > 1:
-    clear_screen()
+if not SILENT:
+    if not ARGUMENTS > 1:
+        clear_screen()
+    else:
+        print("\n")
+
+    print(f" {CYAN}Merrian Dictionary.{ENDC} {BOLD}{BLACK}Version{ENDC} {BOLD}{CYAN}{VERSION}{ENDC}{BOLD}{BLACK}, Database version: {ENDC}{BOLD}{CYAN}{words.VERSION}{ENDC}")
+
+    while ANS.lower() in ("y", "yes"):
+        dictionary_search()
+
+        if ARGUMENTS > 1:
+            sys.exit()
 else:
-    print("\n")
-
-print(f" {CYAN}Merrian Dictionary.{ENDC} {BOLD}{BLACK}Version{ENDC} {BOLD}{CYAN}{VERSION}{ENDC}{BOLD}{BLACK}, Database version: {ENDC}{BOLD}{CYAN}{words.VERSION}{ENDC}")
-
-while ANS.lower() in ("y", "yes"):
     dictionary_search()
-
-    if ARGUMENTS > 1:
-        sys.exit()
+    sys.exit()
