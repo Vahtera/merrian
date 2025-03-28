@@ -257,6 +257,11 @@ def dictionary_search():
         print("\n")
         sys.exit()
 
+    if SEARCH == "--clear":
+        clear_screen()
+        print(f" {CYAN}Merrian Dictionary.{ENDC} {BOLD}{BLACK}Version{ENDC} {BOLD}{CYAN}{VERSION}{ENDC}{BOLD}{BLACK}, Database version: {ENDC}{BOLD}{CYAN}{words.VERSION}{ENDC}")
+        return True
+
     if SEARCH in ["--help", "-h"]:
         display_help()
 
