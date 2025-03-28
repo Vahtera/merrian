@@ -101,13 +101,13 @@ class Language:
             for part_of_speech in ['abstract', 'noun', 'verb', 'doer', 'place']:
                 if word in getattr(glyph, part_of_speech).split("/"):
                     if part_of_speech == "abstract":
-                        return f"\n {BOLD}{word.capitalize()}{ENDC} = {BLUE}{BOLD}{glyph.abstract.upper()}{ENDC} ({BOLD}{BLACK}{part_of_speech.capitalize()}{ENDC})"
+                        return f'\n {BOLD}{word.capitalize()}{ENDC} = {BLUE}{BOLD}{glyph.abstract.upper()}{ENDC} ({BOLD}{BLACK}{part_of_speech.capitalize()}{ENDC})'
                     elif part_of_speech == "verb":
                         WORDS = [temp_string for temp_string in getattr(glyph, part_of_speech).split("/")]
-                        return f"\n {BOLD}to {", to ".join(WORDS)}{ENDC} = {BOLD}{BLUE}{glyph.abstract.upper()}{ENDC}:{GREEN}{BOLD}{part_of_speech.capitalize()}{ENDC}"
+                        return f"\n {BOLD}to {', to '.join(WORDS)}{ENDC} = {BOLD}{BLUE}{glyph.abstract.upper()}{ENDC}:{GREEN}{BOLD}{part_of_speech.capitalize()}{ENDC}"
                     else:
                         WORDS = [temp_string for temp_string in getattr(glyph, part_of_speech).split("/")]
-                        return f"\n {BOLD}{", ".join(WORDS)}{ENDC} = {BOLD}{BLUE}{glyph.abstract.upper()}{ENDC}:{GREEN}{BOLD}{part_of_speech.capitalize()}{ENDC}"
+                        return f"\n {BOLD}{', '.join(WORDS)}{ENDC} = {BOLD}{BLUE}{glyph.abstract.upper()}{ENDC}:{GREEN}{BOLD}{part_of_speech.capitalize()}{ENDC}"
         return "NotFound"
 
     @staticmethod
@@ -118,8 +118,8 @@ class Language:
                 ANSWER = getattr(glyph, P)
                 temp_string = ANSWER.split("/")
                 if P == "verb":
-                    return f"[{BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}:{BOLD}{GREEN}{P.capitalize()}{ENDC}] = {BOLD}{WHITE}to {", to ".join(temp_string)}{ENDC}"
-                return f"[{BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}:{BOLD}{GREEN}{P.capitalize()}{ENDC}] = {BOLD}{WHITE}{", ".join(temp_string)}{ENDC}"
+                    return f"[{BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}:{BOLD}{GREEN}{P.capitalize()}{ENDC}] = {BOLD}{WHITE}to {', to '.join(temp_string)}{ENDC}"
+                return f"[{BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}:{BOLD}{GREEN}{P.capitalize()}{ENDC}] = {BOLD}{WHITE}{', '.join(temp_string)}{ENDC}"
         return f"\n {BOLD}{RED}Error{ENDC}: Word not found in database. Make sure of spelling. You wrote [{BOLD}{YELLOW}{A}, {P}{ENDC}]\n"
 
     @staticmethod
@@ -131,8 +131,8 @@ class Language:
                 temp_string = ANSWER.split("/")
                 temp_word = getattr(glyph, P).split("/")
                 if P == "verb":
-                    return f"{CYAN}to {", to ".join(temp_word)}{ENDC} ({BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}:{BOLD}{GREEN}{P.capitalize()}{ENDC})"
-                return f"{CYAN}{", ".join(temp_word)}{ENDC} ({BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}:{BOLD}{GREEN}{P.capitalize()}{ENDC})"
+                    return f"{CYAN}to {', to '.join(temp_word)}{ENDC} ({BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}:{BOLD}{GREEN}{P.capitalize()}{ENDC})"
+                return f"{CYAN}{', '.join(temp_word)}{ENDC} ({BOLD}{BLUE}{getattr(glyph, 'abstract').upper()}{ENDC}:{BOLD}{GREEN}{P.capitalize()}{ENDC})"
         return f"\n {BOLD}{RED}Error{ENDC}: Word not found in database. Make sure of spelling. You wrote [{BOLD}{YELLOW}{A}, {P}{ENDC}]\n"
 
     @staticmethod
@@ -157,10 +157,10 @@ class Glyph:
         MERRIAN.glyphs.append(self)
     def __repr__(self):
         return (f"  {BOLD}{BLUE}{self.abstract.upper()}{ENDC} {BOLD}{BLACK}(Abstract){ENDC} \n"
-        f"     {BOLD}{BLACK}(Noun){ENDC}: {GREEN}{", ".join(self.noun.split("/"))}{ENDC}\n"
-        f"     {BOLD}{BLACK}(Verb){ENDC}: {GREEN}to {", to ".join(self.verb.split("/"))}{ENDC}\n"
-        f"     {BOLD}{BLACK}(Doer){ENDC}: {GREEN}{", ".join(self.doer.split("/"))}{ENDC}\n"
-        f"    {BOLD}{BLACK}(Place){ENDC}: {GREEN}{", ".join(self.place.split("/"))}{ENDC}\n")
+                + f"     {BOLD}{BLACK}(Noun){ENDC}: {GREEN}{', '.join(self.noun.split('/'))}{ENDC}\n"
+                + f"     {BOLD}{BLACK}(Verb){ENDC}: {GREEN}to {', to '.join(self.verb.split('/'))}{ENDC}\n"
+                + f"     {BOLD}{BLACK}(Doer){ENDC}: {GREEN}{', '.join(self.doer.split('/'))}{ENDC}\n"
+                + f"    {BOLD}{BLACK}(Place){ENDC}: {GREEN}{', '.join(self.place.split('/'))}{ENDC}\n")
 
 DICT = [] # Main dictionary to read the glyphs into
 
@@ -210,9 +210,9 @@ def list_glyphs():
     
     for glyph in MERRIAN.glyphs:
         if row % 2:
-            print(f"{str(row).rjust(2,"0")}: {BOLD}{BLACK}{glyph.abstract.upper().ljust(PADDING, " ")[:PADDING]}{ENDC} {glyph.noun.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.verb.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.doer.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.place.capitalize()[:PADDING]}{ENDC}")
+            print(f"{str(row).rjust(2, '0')}: {BOLD}{BLACK}{glyph.abstract.upper().ljust(PADDING, ' ')[:PADDING]}{ENDC} {glyph.noun.capitalize().ljust(PADDING, ' ')[:PADDING]} {glyph.verb.capitalize().ljust(PADDING, ' ')[:PADDING]} {glyph.doer.capitalize().ljust(PADDING, ' ')[:PADDING]} {glyph.place.capitalize()[:PADDING]}{ENDC}")
         else:
-            print(f"{str(row).rjust(2,"0")}: {BGREY}{BLACK}{glyph.abstract.upper().ljust(PADDING, " ")[:PADDING]}{ENDC}{BGREY} {glyph.noun.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.verb.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.doer.capitalize().ljust(PADDING, " ")[:PADDING]} {glyph.place.capitalize().ljust(PADDING, " ")[:PADDING]}{ENDC}")
+            print(f"{str(row).rjust(2, '0')}: {BGREY}{BLACK}{glyph.abstract.upper().ljust(PADDING, ' ')[:PADDING]}{ENDC}{BGREY} {glyph.noun.capitalize().ljust(PADDING, ' ')[:PADDING]} {glyph.verb.capitalize().ljust(PADDING, ' ')[:PADDING]} {glyph.doer.capitalize().ljust(PADDING, ' ')[:PADDING]} {glyph.place.capitalize().ljust(PADDING, ' ')[:PADDING]}{ENDC}")
         row += 1
 
     for temp_word in MERRIAN.glyphs:
@@ -297,7 +297,7 @@ def dictionary_search():
             WORD = MERRIAN.glyphsearch(ARGS[0], ARGS[1]) # Search for abstract+part combination within Merrian
             print(f"\n {WORD}\n")
         except:
-            print(f"\n {BOLD}{RED}Error{ENDC}: Word not found in database. Make sure of spelling. You wrote [{BOLD}{YELLOW}{", ".join(ARGS)}{ENDC}]\n")
+            print(f"\n {BOLD}{RED}Error{ENDC}: Word not found in database. Make sure of spelling. You wrote [{BOLD}{YELLOW}{', '.join(ARGS)}{ENDC}]\n")
             #sys.exit()
 
 if not SILENT:
